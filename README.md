@@ -6,10 +6,9 @@ O objetivo do projeto é construir uma aplicação Full Stack, onde o frontend s
 
 🖥️ Demonstração da Aplicação
 
-A aplicação permite visualizar os livros cadastrados no sistema através de uma interface simples e moderna.
+A aplicação permite visualizar os livros cadastrados no sistema através de uma interface simples.
 
-Exemplo de exibição:
-
+Exemplo de exibição
 📚 Catálogo de Livros
 
 Dom Casmurro
@@ -21,7 +20,7 @@ Autor: Robert C. Martin
 Preço: R$ 120.00
 🏗 Arquitetura do Sistema
 
-Este projeto faz parte de um sistema dividido em duas aplicações:
+Este projeto faz parte de um sistema dividido em duas aplicações.
 
 Frontend (React)
        ↓ HTTP / JSON
@@ -33,8 +32,7 @@ Fluxo da requisição:
 
 Usuário → React → API REST → Banco de Dados → Resposta JSON → React
 🚀 Tecnologias Utilizadas
-
-Frontend:
+Frontend
 
 React
 
@@ -46,7 +44,7 @@ Axios
 
 CSS
 
-Ferramentas de desenvolvimento:
+Ferramentas de Desenvolvimento
 
 Git
 
@@ -59,20 +57,14 @@ catalogo-livros-frontend
 │
 ├── src
 │   ├── components
-│   │
 │   ├── pages
-│   │
 │   ├── services
-│   │
 │   ├── styles
-│   │
 │   ├── App.jsx
 │   └── main.jsx
 │
 ├── public
-│
 ├── package.json
-│
 └── README.md
 🔌 Integração com API
 
@@ -157,4 +149,4 @@ Projeto desenvolvido por Eber Barbosa.
 
 ⭐ Contribuição
 
-Sinta-se à vontade para abrir issues ou enviar pull requests com melhorias.
+Sinta-se à vontade para abrir Issues ou enviar Pull Requests com melhorias.
