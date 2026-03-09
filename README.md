@@ -1,152 +1,16 @@
-📚 Catálogo de Livros — Frontend
+# React + Vite
 
-Interface web desenvolvida em React para consumo da API do projeto Catálogo de Livros.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-O objetivo do projeto é construir uma aplicação Full Stack, onde o frontend se comunica com uma API REST desenvolvida em Spring Boot.
+Currently, two official plugins are available:
 
-🖥️ Demonstração da Aplicação
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-A aplicação permite visualizar os livros cadastrados no sistema através de uma interface simples.
+## React Compiler
 
-Exemplo de exibição
-📚 Catálogo de Livros
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-Dom Casmurro
-Autor: Machado de Assis
-Preço: R$ 39.90
+## Expanding the ESLint configuration
 
-Clean Code
-Autor: Robert C. Martin
-Preço: R$ 120.00
-🏗 Arquitetura do Sistema
-
-Este projeto faz parte de um sistema dividido em duas aplicações.
-
-Frontend (React)
-       ↓ HTTP / JSON
-Backend (Spring Boot API)
-       ↓
-Banco de Dados (MySQL)
-
-Fluxo da requisição:
-
-Usuário → React → API REST → Banco de Dados → Resposta JSON → React
-🚀 Tecnologias Utilizadas
-Frontend
-
-React
-
-Vite
-
-JavaScript
-
-Axios
-
-CSS
-
-Ferramentas de Desenvolvimento
-
-Git
-
-Node.js
-
-npm
-
-📦 Estrutura do Projeto
-catalogo-livros-frontend
-│
-├── src
-│   ├── components
-│   ├── pages
-│   ├── services
-│   ├── styles
-│   ├── App.jsx
-│   └── main.jsx
-│
-├── public
-├── package.json
-└── README.md
-🔌 Integração com API
-
-A aplicação consome a API REST do projeto backend:
-
-GET http://localhost:8080/livros
-
-Resposta esperada:
-
-[
-  {
-    "id": 1,
-    "titulo": "Dom Casmurro",
-    "autor": "Machado de Assis",
-    "preco": 39.90
-  }
-]
-⚙️ Como Executar o Projeto
-1️⃣ Clonar o repositório
-git clone https://github.com/SEU-USUARIO/catalogo-livros-frontend.git
-2️⃣ Entrar no diretório do projeto
-cd catalogo-livros-frontend
-3️⃣ Instalar dependências
-npm install
-4️⃣ Executar a aplicação
-npm run dev
-
-A aplicação estará disponível em:
-
-http://localhost:5173
-🧠 Projeto Backend
-
-Este frontend consome a API desenvolvida em:
-
-catalogo-livros-api
-
-Tecnologias utilizadas no backend:
-
-Java
-
-Spring Boot
-
-Spring Data JPA
-
-MySQL
-
-Swagger
-
-📊 Roadmap do Projeto
-
-Funcionalidades planejadas:
-
- Estrutura inicial do frontend
-
- Integração com API
-
- Listagem de livros
-
- Cadastro de livros
-
- Edição de livros
-
- Exclusão de livros
-
- Interface responsiva
-
-📚 Objetivo do Projeto
-
-Este projeto foi desenvolvido com foco em:
-
-aprendizado de React
-
-integração Frontend + Backend
-
-boas práticas de desenvolvimento Full Stack
-
-construção de portfólio profissional
-
-👨‍💻 Autor
-
-Projeto desenvolvido por Eber Barbosa.
-
-⭐ Contribuição
-
-Sinta-se à vontade para abrir Issues ou enviar Pull Requests com melhorias.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
