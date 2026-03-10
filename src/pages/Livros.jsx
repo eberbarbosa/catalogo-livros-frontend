@@ -8,15 +8,15 @@ function Livros() {
   ];
 
   return (
-    <div>
-      <h2>Lista de Livros</h2>
+  <div style={{ maxWidth: "600px", margin: "40px auto" }}>
+    <h2>Lista de Livros</h2>
 
-      {livros.map((livro) => (
-        <LivroCard key={livro.id} livro={livro} />
-      ))}
+    {livros.map((livro) => (
+      <LivroCard key={livro.id} livro={livro} />
+    ))}
+  </div>
+);
 
-    </div>
-  );
 }
 
 export default Livros;
