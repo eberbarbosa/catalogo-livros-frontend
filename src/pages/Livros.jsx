@@ -1,3 +1,5 @@
+import LivroCard from "../components/LivroCard";
+
 function Livros() {
 
   const livros = [
@@ -10,11 +12,7 @@ function Livros() {
       <h2>Lista de Livros</h2>
 
       {livros.map((livro) => (
-        <div key={livro.id}>
-          <h3>{livro.titulo}</h3>
-          <p>Autor: {livro.autor}</p>
-          <p>Preço: R$ {livro.preco}</p>
-        </div>
+        <LivroCard key={livro.id} livro={livro} />
       ))}
 
     </div>
