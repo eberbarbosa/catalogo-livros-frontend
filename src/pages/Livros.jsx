@@ -1,4 +1,4 @@
-import LivroCard from "../components/LivroCard";
+import LivroCard from "../components/LivroCard/LivroCard";
 
 function Livros() {
 
