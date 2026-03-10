@@ -1,10 +1,11 @@
-import Livros from "./pages/Livros";
+
+import ListaLivros from "./components/ListaLivros/ListaLivros";
 
 function App() {
   return (
-    <div>
-      <h1>Catálogo de Livros</h1>
-      <Livros />
+    <div style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
+      <h1>📚 Catálogo de Livros</h1>
+      <ListaLivros />
     </div>
   );
 }
