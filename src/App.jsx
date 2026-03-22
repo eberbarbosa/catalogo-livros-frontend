@@ -8,7 +8,8 @@ function App() {
 
   const carregarLivros = async () => {
     const data = await buscarLivros();
-    setLivros(data);
+    console.log("ATUALIZANDO LISTA:", data);
+    setLivros([...data]);
   };
 
   useEffect(() => {

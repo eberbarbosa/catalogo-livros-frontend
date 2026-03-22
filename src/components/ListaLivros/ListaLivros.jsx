@@ -1,31 +1,11 @@
-import { useEffect, useState } from "react";
+
 import LivroCard from "../../components/LivroCard/LivroCard";
-import { buscarLivros } from "../../services/livroService";
-
-function ListaLivros() {
-
-  const [livros, setLivros] = useState([]);
-
-  useEffect(() => {
-
-    async function carregarLivros() {
-
-      const dados = await buscarLivros();
-
-      setLivros(dados);
-
-    }
-
-    carregarLivros();
-
-  }, []);
 
 
-
+function ListaLivros({ livros }) {
   return (
     <div>
       <h2>Lista de Livros</h2>
-
 
       {Array.isArray(livros) ? (
         livros.map(livro => (
@@ -34,7 +14,6 @@ function ListaLivros() {
       ) : (
         <p>Erro ao carregar livros</p>
       )}
-
     </div>
   );
 }
