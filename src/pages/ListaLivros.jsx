@@ -1,13 +1,12 @@
-import "./ListaLivros.css";
+import ListaLivros from "../../components/ListaLivros/ListaLivros";
 
-function ListaLivros() {
-
+function Home() {
   return (
-    <div className="lista-livros">
-      {livros.map((livro) => (
-        <LivroCard key={livro.id} livro={livro} />
-      ))}
+    <div>
+      <h1>Bem-vindo à Home</h1>
+      <ListaLivros />
     </div>
   );
-
 }
+
+export default Home;

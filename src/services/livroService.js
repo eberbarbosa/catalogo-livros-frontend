@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const API_URL = "http://localhost:8080/livros";
 
 export const buscarLivros = async () => {
@@ -47,4 +49,21 @@ export const createLivro = async (livro) => {
     console.error("Erro completo:", error);
     throw error;
   }
+};
+
+//PUT
+export const editarLivro = async (id, livroAtualizado) => {
+  const response = await fetch(`http://localhost:8080/livros/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(livroAtualizado),
+  });
+
+  if(!response.ok) {
+    throw new Error("!!! Erro ao Atualizar o livro !!!")
+  }
+
+  return await response.json();
 };
