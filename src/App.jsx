@@ -1,11 +1,29 @@
-
-import ListaLivros from "./components/ListaLivros/ListaLivros";
+import { useEffect, useState } from "react";
+import ListaLivros             from "./components/ListaLivros/ListaLivros";
+import FormularioLivro         from "./components/FormularioLivro";
+import { buscarLivros }        from "./services/livroService";
 
 function App() {
+  const [livros, setLivros] = useState([]);
+
+  const carregarLivros = async () => {
+    const data = await buscarLivros();
+    setLivros(data);
+  };
+
+  useEffect(() => {
+    carregarLivros();
+  }, []);
+
   return (
     <div style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
       <h1>📚 Catálogo de Livros</h1>
-      <ListaLivros />
+
+      {/* 👇 FORMULÁRIO */}
+      <FormularioLivro onLivroCriado={carregarLivros} />
+
+      {/* 👇 LISTA */}
+      <ListaLivros livros={livros} />
     </div>
   );
 }

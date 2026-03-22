@@ -13,7 +13,7 @@ export const buscarLivros = async () => {
 
     console.log("Resposta da API:", data);
 
-    return data.data || []; // 👈 AQUI está a correção
+    return data.data;
 
   } catch (error) {
 
@@ -21,5 +21,30 @@ export const buscarLivros = async () => {
 
     return [];
 
+  }
+};
+
+// POST
+export const createLivro = async (livro) => {
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(livro),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error("Erro da API:", errorData);
+      throw new Error("Erro ao criar livro");
+    }
+
+    return await response.json();
+
+  } catch (error) {
+    console.error("Erro completo:", error);
+    throw error;
   }
 };
