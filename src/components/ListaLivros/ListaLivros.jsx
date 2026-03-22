@@ -4,7 +4,7 @@ import { buscarLivros } from "../../services/livroService";
 
 function ListaLivros() {
 
-  const [livros, setLivros] = useState([]); // 👈 importante
+  const [livros, setLivros] = useState([]);
 
   useEffect(() => {
 
@@ -20,16 +20,20 @@ function ListaLivros() {
 
   }, []);
 
-  
-  console.log(livros);
+
 
   return (
     <div>
       <h2>Lista de Livros</h2>
 
-      {livros.map((livro) => (
-        <LivroCard key={livro.id} livro={livro} />
-      ))}
+
+      {Array.isArray(livros) ? (
+        livros.map(livro => (
+          <div key={livro.id}>{livro.titulo}</div>
+        ))
+      ) : (
+        <p>Erro ao carregar livros</p>
+      )}
 
     </div>
   );
