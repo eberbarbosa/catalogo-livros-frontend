@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ListaLivros             from "./components/ListaLivros/ListaLivros";
-import FormularioLivro         from "./components/FormularioLivro";
-import { buscarLivros }        from "./services/livroService";
+import ListaLivros from "./components/ListaLivros/ListaLivros";
+import FormularioLivro from "./components/FormularioLivro";
+import { buscarLivros } from "./services/livroService";
 
 function App() {
   const [livros, setLivros] = useState([]);
@@ -24,7 +24,9 @@ function App() {
       <FormularioLivro onLivroCriado={carregarLivros} />
 
       {/* 👇 LISTA */}
-      <ListaLivros livros={livros} />
+      <ListaLivros livros={livros}
+        atualizarLista={carregarLivros}
+      />
     </div>
   );
 }

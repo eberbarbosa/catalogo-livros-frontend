@@ -61,9 +61,16 @@ export const editarLivro = async (id, livroAtualizado) => {
     body: JSON.stringify(livroAtualizado),
   });
 
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("!!! Erro ao Atualizar o livro !!!")
   }
 
   return await response.json();
+};
+
+// DELETAR
+export const deletarLivro = async (id) => {
+  return fetch(`http://localhost:8080/livros/${id}`, {
+    method: "DELETE",
+  });
 };
