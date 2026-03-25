@@ -1,11 +1,10 @@
-// src/components/ListaLivros/ListaLivros.jsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LivroCard from "../../components/LivroCard/LivroCard";
-import { buscarLivros, editarLivro } from "../../services/livroService";
+import { editarLivro, deletarLivro } from "../../services/livroService";
 import "./ListaLivros.css";
 
-function ListaLivros() {
-  const [livros, setLivros] = useState([]);
+function ListaLivros({ livros, atualizarLista }) {
+
   const [livroSelecionado, setLivroSelecionado] = useState(null);
   const [formData, setFormData] = useState({
     titulo: "",
@@ -15,19 +14,8 @@ function ListaLivros() {
     anoPublicacao: "",
   });
 
-  // Carregar livros da API
-  const carregarLivros = async () => {
-    const dados = await buscarLivros();
-    setLivros(Array.isArray(dados) ? dados : []);
-  };
-
-  useEffect(() => {
-    carregarLivros();
-  }, []);
-
-  // Abrir formulário de edição
+  // EDITAR
   const editarLivroHandler = (livro) => {
-    console.log("Editar livro chamado:", livro); // <-- log para teste
     setLivroSelecionado(livro);
     setFormData({
       titulo: livro.titulo,
@@ -38,12 +26,12 @@ function ListaLivros() {
     });
   };
 
-  // Atualizar campos do formulário
+  // INPUT
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Salvar alterações do livro
+  // SALVAR
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!livroSelecionado) return;
@@ -57,6 +45,7 @@ function ListaLivros() {
 
     try {
       await editarLivro(livroSelecionado.id, livroAtualizado);
+
       setLivroSelecionado(null);
       setFormData({
         titulo: "",
@@ -65,9 +54,22 @@ function ListaLivros() {
         isbn: "",
         anoPublicacao: "",
       });
-      carregarLivros();
+
+      atualizarLista(); // 🔥 correto agora
+
     } catch (error) {
       console.error("Erro ao atualizar livro:", error);
+    }
+  };
+
+  // DELETE (usando service)
+  const handleDelete = async (id) => {
+    try {
+      await deletarLivro(id);
+      alert("Livro deletado com sucesso!");
+      atualizarLista(); // 🔥 correto
+    } catch (error) {
+      console.error("Erro ao deletar:", error);
     }
   };
 
@@ -79,7 +81,8 @@ function ListaLivros() {
         <LivroCard
           key={livro.id}
           livro={livro}
-          onEditar={editarLivroHandler} // <-- função passada para o botão
+          onEditar={editarLivroHandler}
+          onDeletar={handleDelete}
         />
       ))}
 
@@ -87,44 +90,12 @@ function ListaLivros() {
         <div className="form-edicao">
           <h3>Editando: {livroSelecionado.titulo}</h3>
           <form onSubmit={handleSubmit}>
-            <input
-              name="titulo"
-              value={formData.titulo}
-              onChange={handleChange}
-              placeholder="Título"
-              required
-            />
-            <input
-              name="autor"
-              value={formData.autor}
-              onChange={handleChange}
-              placeholder="Autor"
-              required
-            />
-            <input
-              name="preco"
-              type="number"
-              step="0.01"
-              value={formData.preco}
-              onChange={handleChange}
-              placeholder="Preço"
-              required
-            />
-            <input
-              name="isbn"
-              value={formData.isbn}
-              onChange={handleChange}
-              placeholder="ISBN"
-              required
-            />
-            <input
-              name="anoPublicacao"
-              type="number"
-              value={formData.anoPublicacao}
-              onChange={handleChange}
-              placeholder="Ano de Publicação"
-              required
-            />
+            <input name="titulo" value={formData.titulo} onChange={handleChange} required />
+            <input name="autor" value={formData.autor} onChange={handleChange} required />
+            <input name="preco" type="number" value={formData.preco} onChange={handleChange} required />
+            <input name="isbn" value={formData.isbn} onChange={handleChange} required />
+            <input name="anoPublicacao" type="number" value={formData.anoPublicacao} onChange={handleChange} required />
+
             <button type="submit">Salvar</button>
             <button type="button" onClick={() => setLivroSelecionado(null)}>
               Cancelar
