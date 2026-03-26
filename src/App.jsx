@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ListaLivros from "./components/ListaLivros/ListaLivros";
-import FormularioLivro from "./components/FormularioLivro";
+import ListaLivros from "./components/Livro/ListaLivros";
+import FormularioLivro from "./components/Livro/FormularioLivro";
 import { buscarLivros } from "./services/livroService";
 
 function App() {

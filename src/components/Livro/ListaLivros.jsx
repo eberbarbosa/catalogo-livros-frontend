@@ -1,5 +1,5 @@
 import { useState } from "react";
-import LivroCard from "../../components/LivroCard/LivroCard";
+import LivroCard from "./LivroCard";
 import { editarLivro, deletarLivro } from "../../services/livroService";
 import "./ListaLivros.css";
 
