@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createLivro } from "../../services/livroService";
+import "./FormularioLivro.css";
 
 const FormularioLivro = ({ onLivroCriado, mostrarMensagem }) => {
     const [titulo, setTitulo] = useState("");
@@ -48,7 +49,7 @@ const FormularioLivro = ({ onLivroCriado, mostrarMensagem }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="form-livro">
             <h2>Cadastrar Livro</h2>
 
             <input
