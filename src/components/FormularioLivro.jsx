@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createLivro } from "../services/livroService";
 
-const FormularioLivro = ({ onLivroCriado }) => {
+const FormularioLivro = ({ onLivroCriado, mostrarMensagem }) => {
     const [titulo, setTitulo] = useState("");
     const [autor, setAutor] = useState("");
     const [preco, setPreco] = useState("");
@@ -22,7 +22,9 @@ const FormularioLivro = ({ onLivroCriado }) => {
         try {
             await createLivro(novoLivro);
 
-            alert("Livro cadastrado com sucesso!");
+            if (mostrarMensagem) {
+                mostrarMensagem("Livro cadastrado com sucesso! 📚");
+            }
 
             // limpa formulário
             setTitulo("");
@@ -38,7 +40,10 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
         } catch (error) {
             console.error(error);
-            alert("Erro ao cadastrar livro");
+            
+            if (mostrarMensagem) {
+                mostrarMensagem("Erro ao cadastrar livro ❌");
+            }
         }
     };
 

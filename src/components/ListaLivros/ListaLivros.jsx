@@ -85,6 +85,7 @@ function ListaLivros({ livros, atualizarLista }) {
           onDeletar={handleDelete}
         />
       ))}
+     
 
       {livroSelecionado && (
         <div className="form-edicao">
