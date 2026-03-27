@@ -12,7 +12,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
 
         const novoLivro = {
             titulo,
@@ -24,7 +24,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
         try {
             await createLivro(novoLivro);
-            
+
 
             toast.success("Livro cadastrado com sucesso! 📚");
 
@@ -91,7 +91,9 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 required
             />
 
-            <button type="submit">Salvar</button>
+            <button type="submit" className="btn btn-primary">
+                Salvar
+            </button>
         </form>
     );
 };

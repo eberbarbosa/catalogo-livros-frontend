@@ -13,7 +13,7 @@ function LivroCard({ livro, onEditar, onDeletar }) {
       <div className="livro-acoes">
         {onEditar && (
           <button
-            className="btn btn-editar"
+            className="btn btn-primary"
             onClick={() => onEditar(livro)}
           >
             Editar
@@ -22,7 +22,7 @@ function LivroCard({ livro, onEditar, onDeletar }) {
 
         {onDeletar && (
           <button
-            className="btn btn-deletar"
+            className="btn btn-danger"
             onClick={() => onDeletar(livro.id)}
           >
             Deletar

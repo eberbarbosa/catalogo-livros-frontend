@@ -38,3 +38,44 @@ body {
   max-width: 900px;
   margin: 0 auto;
 }
+
+/* BOTÃO BASE */
+.btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+/* PRIMARY (ações principais) */
+.btn-primary {
+  background-color: #22c55e;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #16a34a;
+}
+
+/* DANGER (ações destrutivas) */
+.btn-danger {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+/* SECONDARY (ações neutras) */
+.btn-secondary {
+  background-color: #64748b;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #475569;
+}
