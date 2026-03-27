@@ -3,10 +3,11 @@ import ListaLivros from "./components/Livro/ListaLivros";
 import FormularioLivro from "./components/Livro/FormularioLivro";
 import { buscarLivros } from "./services/livroService";
 import Layout from "./components/Layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [livros, setLivros] = useState([]);
-  const [mensagem, setMensagem] = useState("");
 
   const carregarLivros = async () => {
     const data = await buscarLivros();
@@ -14,43 +15,36 @@ function App() {
     setLivros([...data]);
   };
 
-  const mostrarMensagem = (texto) => {
-    setMensagem(texto);
-
-    setTimeout(() => {
-      setMensagem("");
-    }, 3000); // some em 3s
-  };
 
   useEffect(() => {
     carregarLivros();
   }, []);
 
   return (
-    <>
-      {mensagem && (
-        <div className="toast">
-          {mensagem}
-        </div>
-      )}
+    <Layout>
 
       <div style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
         <h1>📚 Catálogo de Livros</h1>
 
         {/* 👇 FORMULÁRIO */}
         <FormularioLivro onLivroCriado={carregarLivros}
-          mostrarMensagem={mostrarMensagem}
         />
 
         {/* 👇 LISTA */}
         <ListaLivros
           livros={livros}
           atualizarLista={carregarLivros}
-          mostrarMensagem={mostrarMensagem}
         />
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          theme="dark"
+        />
+
       </div>
-    </>
+    </Layout>
   );
 }
 
-  export default App;
+export default App;
