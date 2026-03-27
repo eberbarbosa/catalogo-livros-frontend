@@ -1,0 +1,30 @@
+.form-livro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.form-livro input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.form-livro button {
+  grid-column: span 2;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #22c55e;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.form-livro button:hover {
+  background-color: #16a34a;
+}
