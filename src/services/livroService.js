@@ -1,76 +1,27 @@
-import axios from "axios";
+import { api } from "./api";
 
-const API_URL = "http://localhost:8080/livros";
-
+// GET
 export const buscarLivros = async () => {
-  try {
+  const response = await api.get("/livros");
 
-    const response = await fetch(API_URL);
+  console.log("DEBUG RESPONSE:", response.data);
 
-    if (!response.ok) {
-      throw new Error("Erro ao buscar livros");
-    }
-
-    const data = await response.json();
-
-    console.log("Resposta da API:", data);
-
-    return data.data;
-
-  } catch (error) {
-
-    console.error("Erro na requisição:", error);
-
-    return [];
-
-  }
+  return response.data.data;
 };
 
 // POST
-export const createLivro = async (livro) => {
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(livro),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error("Erro da API:", errorData);
-      throw new Error("Erro ao criar livro");
-    }
-
-    return await response.json();
-
-  } catch (error) {
-    console.error("Erro completo:", error);
-    throw error;
-  }
+export const criarLivro = async (livro) => {
+  const response = await api.post("/livros", livro);
+  return response.data;
 };
 
-//PUT
+// PUT
 export const editarLivro = async (id, livroAtualizado) => {
-  const response = await fetch(`http://localhost:8080/livros/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(livroAtualizado),
-  });
-
-  if (!response.ok) {
-    throw new Error("!!! Erro ao Atualizar o livro !!!")
-  }
-
-  return await response.json();
+  const response = await api.put(`/livros/${id}`, livroAtualizado);
+  return response.data;
 };
 
-// DELETAR
+// DELETE
 export const deletarLivro = async (id) => {
-  return fetch(`http://localhost:8080/livros/${id}`, {
-    method: "DELETE",
-  });
+  await api.delete(`/livros/${id}`);
 };

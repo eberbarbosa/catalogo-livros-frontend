@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createLivro } from "../../services/livroService";
+import { criarLivro } from "../../services/livroService";
 import "./FormularioLivro.css";
 import { toast } from "react-toastify";
 
@@ -23,7 +23,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
         };
 
         try {
-            await createLivro(novoLivro);
+            await criarLivro(novoLivro);
             
 
             toast.success("Livro cadastrado com sucesso! 📚");
