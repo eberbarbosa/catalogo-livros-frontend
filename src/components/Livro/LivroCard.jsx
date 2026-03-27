@@ -10,14 +10,26 @@ function LivroCard({ livro, onEditar, onDeletar }) {
       <p>Preço: R$ {livro.preco}</p>
       <p>ISBN: {livro.isbn}</p>
       <p>Ano: {livro.anoPublicacao}</p>
-      {onEditar && (
-        <button onClick={() => onEditar(livro)}>✏️ Editar</button>
-      )}
-      {onDeletar && (
-        <button onClick={() => onDeletar(livro.id)}>
-          🗑️ Deletar
-        </button>
-      )}
+      <div className="livro-acoes">
+        {onEditar && (
+          <button
+            className="btn btn-editar"
+            onClick={() => onEditar(livro)}
+          >
+            Editar
+          </button>
+        )}
+
+        {onDeletar && (
+          <button
+            className="btn btn-deletar"
+            onClick={() => onDeletar(livro.id)}
+          >
+            Deletar
+          </button>
+        )}
+      </div>
+      
     </div>
   );
 }

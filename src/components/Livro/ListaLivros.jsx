@@ -2,6 +2,7 @@ import { useState } from "react";
 import LivroCard from "./LivroCard";
 import { editarLivro, deletarLivro } from "../../services/livroService";
 import "./ListaLivros.css";
+import { toast } from "react-toastify";
 
 function ListaLivros({ livros, atualizarLista }) {
 
@@ -46,6 +47,8 @@ function ListaLivros({ livros, atualizarLista }) {
     try {
       await editarLivro(livroSelecionado.id, livroAtualizado);
 
+       toast.success("Livro atualizado com sucesso ✏️");
+
       setLivroSelecionado(null);
       setFormData({
         titulo: "",
@@ -59,6 +62,8 @@ function ListaLivros({ livros, atualizarLista }) {
 
     } catch (error) {
       console.error("Erro ao atualizar livro:", error);
+
+      toast.error("Erro ao atualizar livro ❌");
     }
   };
 
@@ -66,8 +71,8 @@ function ListaLivros({ livros, atualizarLista }) {
   const handleDelete = async (id) => {
     try {
       await deletarLivro(id);
-      alert("Livro deletado com sucesso!");
-      atualizarLista(); // 🔥 correto
+      toast.success("Livro deletado com sucesso! 🗑");
+      atualizarLista(); 
     } catch (error) {
       console.error("Erro ao deletar:", error);
     }

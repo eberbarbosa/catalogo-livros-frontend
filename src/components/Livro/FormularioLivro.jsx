@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { createLivro } from "../../services/livroService";
 import "./FormularioLivro.css";
+import { toast } from "react-toastify";
 
-const FormularioLivro = ({ onLivroCriado, mostrarMensagem }) => {
+const FormularioLivro = ({ onLivroCriado }) => {
     const [titulo, setTitulo] = useState("");
     const [autor, setAutor] = useState("");
     const [preco, setPreco] = useState("");
@@ -11,6 +12,7 @@ const FormularioLivro = ({ onLivroCriado, mostrarMensagem }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
 
         const novoLivro = {
             titulo,
@@ -22,10 +24,9 @@ const FormularioLivro = ({ onLivroCriado, mostrarMensagem }) => {
 
         try {
             await createLivro(novoLivro);
+            
 
-            if (mostrarMensagem) {
-                mostrarMensagem("Livro cadastrado com sucesso! 📚");
-            }
+            toast.success("Livro cadastrado com sucesso! 📚");
 
             // limpa formulário
             setTitulo("");
@@ -41,15 +42,13 @@ const FormularioLivro = ({ onLivroCriado, mostrarMensagem }) => {
 
         } catch (error) {
             console.error(error);
-            
-            if (mostrarMensagem) {
-                mostrarMensagem("Erro ao cadastrar livro ❌");
-            }
+
+            toast.error("Erro ao cadastrar livro ❌");
         }
     };
 
     return (
-        <form className="form-livro">
+        <form className="form-livro" onSubmit={handleSubmit}>
             <h2>Cadastrar Livro</h2>
 
             <input
