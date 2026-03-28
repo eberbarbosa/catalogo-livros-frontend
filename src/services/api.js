@@ -12,18 +12,7 @@ api.interceptors.response.use(
     (error) => {
         console.error("Erro na API:", error);
 
-        if (error.response) {
-            // Erro vindo do backend
-            const mensagem =
-                error.response.data?.message || "Erro na requisição";
-
-            alert(mensagem); // depois vamos melhorar isso
-        } else if (error.request) {
-            alert("Servidor não respondeu. Tente novamente.");
-        } else {
-            alert("Erro inesperado.");
-        }
-
+        // 👇 NÃO FAZ MAIS NADA AQUI
         return Promise.reject(error);
     }
 );

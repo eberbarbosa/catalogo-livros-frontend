@@ -26,19 +26,7 @@ api.interceptors.response.use(
   },
   (error) => {
     console.error("❌ Erro global:", error);
-
-    if (error.response) {
-      switch (error.response.status) {
-        case 401:
-          alert("Não autorizado! Faça login.");
-          break;
-        case 500:
-          alert("Erro no servidor.");
-          break;
-        default:
-          alert("Erro inesperado.");
-      }
-    }
+   
 
     return Promise.reject(error);
   }
