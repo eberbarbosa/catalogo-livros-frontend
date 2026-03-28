@@ -6,7 +6,10 @@ import { toast } from "react-toastify";
 
 function ListaLivros({ livros, atualizarLista }) {
 
+  
   const [livroSelecionado, setLivroSelecionado] = useState(null);
+  const [busca, setBusca] = useState("");
+
   const [formData, setFormData] = useState({
     titulo: "",
     autor: "",
@@ -47,7 +50,7 @@ function ListaLivros({ livros, atualizarLista }) {
     try {
       await editarLivro(livroSelecionado.id, livroAtualizado);
 
-       toast.success("Livro atualizado com sucesso ✏️");
+      toast.success("Livro atualizado com sucesso ✏️");
 
       setLivroSelecionado(null);
       setFormData({
@@ -72,17 +75,36 @@ function ListaLivros({ livros, atualizarLista }) {
     try {
       await deletarLivro(id);
       toast.success("Livro deletado com sucesso! 🗑");
-      atualizarLista(); 
+      atualizarLista();
     } catch (error) {
       console.error("Erro ao deletar:", error);
     }
   };
 
+  const livrosFiltrados = livros.filter((livro) =>
+    livro.titulo.toLowerCase().includes(busca.toLowerCase())
+  );
+
   return (
     <div className="lista-livros">
       <h2>Lista de Livros</h2>
 
-      {livros.map((livro) => (
+       {/* 🔍 CAMPO DE BUSCA */}
+    <input
+      type="text"
+      placeholder="Buscar por título..."
+      value={busca}
+      onChange={(e) => setBusca(e.target.value)}
+      style={{
+        padding: "10px",
+        marginBottom: "20px",
+        width: "100%",
+        maxWidth: "400px"
+      }}
+    />
+      
+
+      {livrosFiltrados.map((livro) => (
         <LivroCard
           key={livro.id}
           livro={livro}
@@ -90,7 +112,7 @@ function ListaLivros({ livros, atualizarLista }) {
           onDeletar={handleDelete}
         />
       ))}
-     
+
 
       {livroSelecionado && (
         <div className="form-edicao">
@@ -101,6 +123,7 @@ function ListaLivros({ livros, atualizarLista }) {
             <input name="preco" type="number" value={formData.preco} onChange={handleChange} required />
             <input name="isbn" value={formData.isbn} onChange={handleChange} required />
             <input name="anoPublicacao" type="number" value={formData.anoPublicacao} onChange={handleChange} required />
+
 
             <button type="submit">Salvar</button>
             <button type="button" onClick={() => setLivroSelecionado(null)}>
