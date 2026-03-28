@@ -12,7 +12,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
 
         const novoLivro = {
             titulo,
@@ -24,7 +24,6 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
         try {
             await criarLivro(novoLivro);
-            
 
             toast.success("Livro cadastrado com sucesso! 📚");
 
@@ -43,7 +42,19 @@ const FormularioLivro = ({ onLivroCriado }) => {
         } catch (error) {
             console.error(error);
 
-            toast.error("Erro ao cadastrar livro ❌");
+            let mensagem = "Erro ao cadastrar livro ❌";
+
+            if (error.response) {
+                if (typeof error.response.data === "string") {
+                    mensagem = error.response.data;
+                } else if (error.response.data?.message) {
+                    mensagem = error.response.data.message;
+                }
+            } else if (error.message) {
+                mensagem = error.message;
+            }
+
+            toast.error(mensagem);
         }
     };
 
