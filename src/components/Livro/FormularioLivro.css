@@ -23,8 +23,45 @@
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
+
+  /* 👇 ESSENCIAL PRO SPINNER FUNCIONAR BEM */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .form-livro button:hover {
   background-color: #16a34a;
+}
+
+/* 👇 você pode até remover essa classe se quiser */
+.btn-salvar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Spinner (melhorado) */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spinnerRotate 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spinnerRotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Estado desabilitado */
+.form-livro button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
