@@ -9,8 +9,11 @@ const FormularioLivro = ({ onLivroCriado }) => {
     const [preco, setPreco] = useState("");
     const [isbn, setIsbn] = useState("");
     const [anoPublicacao, setAnoPublicacao] = useState("");
+    const [loading, setLoading] = useState(false);
+
 
     const handleSubmit = async (e) => {
+        console.log("CLICOU NO BOTÃO");
         e.preventDefault();
 
 
@@ -22,8 +25,14 @@ const FormularioLivro = ({ onLivroCriado }) => {
             anoPublicacao: parseInt(anoPublicacao),
         };
 
+        setLoading(true);
+        console.log("INICIO");
+
+
         try {
             await criarLivro(novoLivro);
+
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
             toast.success("Livro cadastrado com sucesso! 📚");
 
@@ -55,6 +64,9 @@ const FormularioLivro = ({ onLivroCriado }) => {
             }
 
             toast.error(mensagem);
+
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -102,7 +114,16 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 required
             />
 
-            <button type="submit">Salvar</button>
+            <button type="submit" disabled={loading} className="btn-salvar">
+                {loading ? (
+                    <>
+                        <span className="spinner"></span>
+                        Salvando...
+                    </>
+                ) : (
+                    "Salvar"
+                )}
+            </button>
         </form>
     );
 };
