@@ -2,6 +2,8 @@ import { useState } from "react";
 import { criarLivro } from "../../services/livroService";
 import "./FormularioLivro.css";
 import { toast } from "react-toastify";
+import { mensagens } from "../../utils/toastMessages";
+import { toastSucesso } from "../../utils/toast";
 
 const FormularioLivro = ({ onLivroCriado }) => {
     const [titulo, setTitulo] = useState("");
@@ -31,10 +33,11 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
         try {
             await criarLivro(novoLivro);
+            
 
             await new Promise(resolve => setTimeout(resolve, 2000));
 
-            toast.success("Livro cadastrado com sucesso! 📚");
+            toastSucesso(mensagens.sucesso.criar);
 
             // limpa formulário
             setTitulo("");
