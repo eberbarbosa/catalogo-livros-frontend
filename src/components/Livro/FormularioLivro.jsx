@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { criarLivro } from "../../services/livroService";
+import { criarLivro } from "@/services/livroService";
 import "./FormularioLivro.css";
-import { toast } from "react-toastify";
-import { mensagens } from "../../utils/toastMessages";
-import { toastSucesso } from "../../utils/toast";
+import { mensagens } from "@/utils/toastMessages";
+import { toastSucesso } from "@/utils/toast";
+import { tratarErro } from "@/utils/errorHandler";
+import { toastErro } from "@/utils/toast";
+
 
 const FormularioLivro = ({ onLivroCriado }) => {
     const [titulo, setTitulo] = useState("");
@@ -34,7 +36,6 @@ const FormularioLivro = ({ onLivroCriado }) => {
         try {
             await criarLivro(novoLivro);
 
-
             await new Promise(resolve => setTimeout(resolve, 2000));
 
             toastSucesso(mensagens.sucesso.criar);
@@ -53,25 +54,10 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
         } catch (error) {
             console.error(error);
-
-            let mensagem = "Erro ao cadastrar livro ❌";
-
-            if (error.response) {
-                if (typeof error.response.data === "string") {
-                    mensagem = error.response.data;
-                } else if (error.response.data?.message) {
-                    mensagem = error.response.data.message;
-                }
-            } else if (error.message) {
-                mensagem = "Não foi possível conectar ao servidor 🌐";
-            } else {
-                mensagem = "Erro inesperado ❌";
-            }
-
-            toast.error(mensagem);
-
-        } finally {
-            setLoading(false);
+            toastErro(tratarErro(error));
+        }
+        finally {
+            setLoading(false); // 👈 ESSENCIAL
         }
     };
 
