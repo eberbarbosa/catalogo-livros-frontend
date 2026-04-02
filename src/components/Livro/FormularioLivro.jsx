@@ -33,7 +33,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
         try {
             await criarLivro(novoLivro);
-            
+
 
             await new Promise(resolve => setTimeout(resolve, 2000));
 
@@ -63,7 +63,9 @@ const FormularioLivro = ({ onLivroCriado }) => {
                     mensagem = error.response.data.message;
                 }
             } else if (error.message) {
-                mensagem = error.message;
+                mensagem = "Não foi possível conectar ao servidor 🌐";
+            } else {
+                mensagem = "Erro inesperado ❌";
             }
 
             toast.error(mensagem);
