@@ -1,6 +1,6 @@
 import { useState } from "react";
 import LivroCard from "./LivroCard";
-import { editarLivro, deletarLivro } from "../../services/livroService";
+import { editarLivro, deletarLivro } from "@/services/livroService";
 import "./ListaLivros.css";
 import { toast } from "react-toastify";
 
