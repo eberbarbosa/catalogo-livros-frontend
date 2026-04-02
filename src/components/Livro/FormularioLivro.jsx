@@ -29,6 +29,16 @@ const FormularioLivro = ({ onLivroCriado }) => {
             anoPublicacao: parseInt(anoPublicacao),
         };
 
+        
+        const errosValidacao = validarLivro(novoLivro);
+
+        if (Object.keys(errosValidacao).length > 0) {
+            setErros(errosValidacao);
+            return; // ⛔ BLOQUEIA ENVIO
+        }
+
+        setErros({}); // limpa erros se estiver tudo certo
+
         setLoading(true);
         console.log("INICIO");
 
@@ -61,6 +71,22 @@ const FormularioLivro = ({ onLivroCriado }) => {
         }
     };
 
+    const [erros, setErros] = useState({});
+
+    function validarLivro(livro) {
+        const erros = {};
+
+        if (!livro.titulo || livro.titulo.trim().length < 3) {
+            erros.titulo = "Título deve ter pelo menos 3 caracteres";
+        }
+
+        if (!livro.preco || isNaN(livro.preco) || Number(livro.preco) <= 0) {
+            erros.preco = "Preço deve ser maior que zero";
+        }
+
+        return erros;
+    }
+
     return (
         <form className="form-livro" onSubmit={handleSubmit}>
             <h2>Cadastrar Livro</h2>
@@ -70,8 +96,9 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 placeholder="Título"
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
-                required
-            />
+                
+            />{erros.titulo && <span className="erro">{erros.titulo}</span>}
+
 
             <input
                 type="text"
@@ -86,8 +113,9 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 placeholder="Preço"
                 value={preco}
                 onChange={(e) => setPreco(e.target.value)}
-                required
+                
             />
+            {erros.preco && <span className="erro">{erros.preco}</span>}
 
             <input
                 type="text"
