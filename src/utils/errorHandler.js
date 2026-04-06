@@ -20,6 +20,10 @@ export function tratarErro(error) {
             return "Recurso não encontrado";
         }
 
+        if (status === 409) {
+            return data?.message || "Conflito de dados";
+        }
+
         if (status === 500) {
             return "Erro interno no servidor";
         }
