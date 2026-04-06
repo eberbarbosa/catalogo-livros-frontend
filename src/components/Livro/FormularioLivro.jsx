@@ -29,12 +29,17 @@ const FormularioLivro = ({ onLivroCriado }) => {
             anoPublicacao: parseInt(anoPublicacao),
         };
 
-        
+
         const errosValidacao = validarLivro(novoLivro);
 
         if (Object.keys(errosValidacao).length > 0) {
             setErros(errosValidacao);
-            return; // ⛔ BLOQUEIA ENVIO
+
+            // MOSTRA TOAST AQUI
+            Object.values(errosValidacao).forEach((msg) => {
+                toastErro(msg);
+            }); 
+            return; // BLOQUEIA ENVIO
         }
 
         setErros({}); // limpa erros se estiver tudo certo
@@ -63,8 +68,8 @@ const FormularioLivro = ({ onLivroCriado }) => {
             }
 
         } catch (error) {
-            console.error(error);
-            toastErro(tratarErro("Erro ao criar livro:", error));
+            console.error("Erro ao criar livro", error);
+            toastErro(tratarErro(error));
         }
         finally {
             setLoading(false); // 👈 ESSENCIAL
@@ -77,12 +82,12 @@ const FormularioLivro = ({ onLivroCriado }) => {
         const erros = {};
 
         if (!livro.titulo || livro.titulo.trim().length < 3) {
-            //erros.titulo = "Título deve ter pelo menos 3 caracteres";
-            toastErro(erros.titulo ="Título dever ter pelo menos 3 caracteres");
+            erros.titulo = "Título deve ter pelo menos 3 caracteres";
+
         }
 
         if (!livro.preco || isNaN(livro.preco) || Number(livro.preco) <= 0) {
-            toastErro(erros.preco = "Preço deve ser maior que zero");
+            erros.preco = "Preço deve ser maior que zero";
         }
 
         return erros;
@@ -97,7 +102,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 placeholder="Título"
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
-                
+
             />{erros.titulo && <span className="erro">{erros.titulo}</span>}
 
 
@@ -114,7 +119,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 placeholder="Preço"
                 value={preco}
                 onChange={(e) => setPreco(e.target.value)}
-                
+
             />
             {erros.preco && <span className="erro">{erros.preco}</span>}
 

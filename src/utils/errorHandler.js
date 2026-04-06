@@ -1,20 +1,25 @@
 export function tratarErro(error) {
-    console.log("Erro completo:", error);
+    console.error("Erro tratado:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+        code: error.code
+    });
 
     if (error.response) {
         const { status, data } = error.response;
 
-        // Erros de validação (400)
         if (status === 400) {
-            return data.message || "Dados inválidos";
+            if (Array.isArray(data?.errors)) {
+                return data.errors.join(", ");
+            }
+            return data?.message || "Dados inválidos";
         }
 
-        // Não encontrado (404)
         if (status === 404) {
             return "Recurso não encontrado";
         }
 
-        // Erro interno (500)
         if (status === 500) {
             return "Erro interno no servidor";
         }
@@ -22,11 +27,14 @@ export function tratarErro(error) {
         return "Erro inesperado";
     }
 
-    // Sem resposta (backend caiu, rede, etc)
+    // 🔥 NOVO TRATAMENTO
+    if (error.code === "ERR_NETWORK") {
+        return "Não foi possível conectar ao servidor";
+    }
+
     if (error.request) {
         return "Sem resposta do servidor";
     }
 
-    // Erro desconhecido
     return "Erro ao processar requisição";
 }
