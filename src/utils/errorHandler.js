@@ -1,11 +1,32 @@
-export const tratarErro = (error) => {
+export function tratarErro(error) {
+    console.log("Erro completo:", error);
+
     if (error.response) {
-        if (typeof error.response.data === "string") {
-            return error.response.data;
+        const { status, data } = error.response;
+
+        // Erros de validação (400)
+        if (status === 400) {
+            return data.message || "Dados inválidos";
         }
-        return error.response.data?.message || "Erro no servidor ❌";
-    } else if (error.request) {
-        return "Não foi possível conectar ao servidor 🌐";
+
+        // Não encontrado (404)
+        if (status === 404) {
+            return "Recurso não encontrado";
+        }
+
+        // Erro interno (500)
+        if (status === 500) {
+            return "Erro interno no servidor";
+        }
+
+        return "Erro inesperado";
     }
-    return "Erro inesperado ❌";
-};
+
+    // Sem resposta (backend caiu, rede, etc)
+    if (error.request) {
+        return "Sem resposta do servidor";
+    }
+
+    // Erro desconhecido
+    return "Erro ao processar requisição";
+}

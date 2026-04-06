@@ -64,7 +64,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
 
         } catch (error) {
             console.error(error);
-            toastErro(tratarErro(error));
+            toastErro(tratarErro("Erro ao criar livro:", error));
         }
         finally {
             setLoading(false); // 👈 ESSENCIAL
@@ -77,11 +77,12 @@ const FormularioLivro = ({ onLivroCriado }) => {
         const erros = {};
 
         if (!livro.titulo || livro.titulo.trim().length < 3) {
-            erros.titulo = "Título deve ter pelo menos 3 caracteres";
+            //erros.titulo = "Título deve ter pelo menos 3 caracteres";
+            toastErro(erros.titulo ="Título dever ter pelo menos 3 caracteres");
         }
 
         if (!livro.preco || isNaN(livro.preco) || Number(livro.preco) <= 0) {
-            erros.preco = "Preço deve ser maior que zero";
+            toastErro(erros.preco = "Preço deve ser maior que zero");
         }
 
         return erros;

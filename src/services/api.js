@@ -12,7 +12,7 @@ api.interceptors.response.use(
     (error) => {
         console.error("Erro na API:", error);
 
-        // 👇 NÃO FAZ MAIS NADA AQUI
+        // NÃO FAZ MAIS NADA AQUI
         return Promise.reject(error);
     }
 );
