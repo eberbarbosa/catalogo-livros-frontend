@@ -14,19 +14,22 @@ const FormularioLivro = ({ onLivroCriado }) => {
     const [isbn, setIsbn] = useState("");
     const [anoPublicacao, setAnoPublicacao] = useState("");
     const [loading, setLoading] = useState(false);
+    const [erros, setErros] = useState({});
 
 
-    const handleSubmit = async (e) => {
+    /*const handleSubmit = async (e) => {
         console.log("CLICOU NO BOTÃO");
         e.preventDefault();
+
+        
 
 
         const novoLivro = {
             titulo,
             autor,
-            preco: parseFloat(preco),
+            preco: preco ? parseFloat(preco) : null,
             isbn,
-            anoPublicacao: parseInt(anoPublicacao),
+            anoPublicacao: anoPublicacao ? parseInt(anoPublicacao) : null,
         };
 
 
@@ -38,7 +41,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
             // MOSTRA TOAST AQUI
             Object.values(errosValidacao).forEach((msg) => {
                 toastErro(msg);
-            }); 
+            });
             return; // BLOQUEIA ENVIO
         }
 
@@ -48,35 +51,97 @@ const FormularioLivro = ({ onLivroCriado }) => {
         console.log("INICIO");
 
 
+         try {
+             await criarLivro(novoLivro);
+ 
+             await new Promise(resolve => setTimeout(resolve, 2000));
+ 
+             toastSucesso(mensagens.sucesso.criar);
+ 
+             // limpa formulário
+             setTitulo("");
+             setAutor("");
+             setPreco("");
+             setIsbn("");
+             setAnoPublicacao("");
+ 
+             // avisa o componente pai para atualizar lista
+             if (onLivroCriado) {
+                 onLivroCriado();
+             }
+ 
+         } catch (error) {
+             console.error("Erro ao criar livro", error);
+             toastErro(tratarErro(error));
+         }
+         finally {
+             setLoading(false); // 👈 ESSENCIAL
+         }
+     }; */
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        console.log("🔥 SUBMIT DISPARADO");
+
+        const novoLivro = {
+            titulo,
+            autor,
+            preco: preco ? parseFloat(preco) : null,
+            isbn,
+            anoPublicacao: anoPublicacao ? parseInt(anoPublicacao) : null,
+        };
+
+        console.log("📦 OBJETO:", novoLivro);
+
+        const errosValidacao = validarLivro(novoLivro);
+
+        if (Object.keys(errosValidacao).length > 0) {
+            console.log("❌ ERROS:", errosValidacao);
+
+            setErros(errosValidacao);
+
+            Object.values(errosValidacao).forEach((msg) => {
+                toastErro(msg);
+            });
+
+            return;
+        }
+
+        setErros({});
+        setLoading(true);
+
         try {
+            console.log("🚀 CHAMANDO API");
+
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
             await criarLivro(novoLivro);
 
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            console.log("✅ SUCESSO");
 
             toastSucesso(mensagens.sucesso.criar);
 
-            // limpa formulário
+            // limpar formulário
             setTitulo("");
             setAutor("");
             setPreco("");
             setIsbn("");
             setAnoPublicacao("");
 
-            // avisa o componente pai para atualizar lista
             if (onLivroCriado) {
                 onLivroCriado();
             }
 
         } catch (error) {
-            console.error("Erro ao criar livro", error);
+            console.error("💥 ERRO:", error);
             toastErro(tratarErro(error));
-        }
-        finally {
-            setLoading(false); // 👈 ESSENCIAL
+        } finally {
+            setLoading(false);
         }
     };
 
-    const [erros, setErros] = useState({});
+
 
     function validarLivro(livro) {
         const erros = {};
@@ -111,7 +176,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 placeholder="Autor"
                 value={autor}
                 onChange={(e) => setAutor(e.target.value)}
-                required
+            //required
             />
 
             <input
@@ -128,7 +193,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 placeholder="ISBN"
                 value={isbn}
                 onChange={(e) => setIsbn(e.target.value)}
-                required
+            //required
             />
 
             <input
@@ -136,7 +201,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
                 placeholder="Ano de Publicação"
                 value={anoPublicacao}
                 onChange={(e) => setAnoPublicacao(e.target.value)}
-                required
+            //required
             />
 
             <button type="submit" disabled={loading} className="btn-salvar">
@@ -152,5 +217,6 @@ const FormularioLivro = ({ onLivroCriado }) => {
         </form>
     );
 };
+
 
 export default FormularioLivro;
