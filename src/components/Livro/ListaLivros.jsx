@@ -10,6 +10,12 @@ function ListaLivros({ atualizarLista }) {
   const [livroSelecionado, setLivroSelecionado] = useState(null);
   const [busca, setBusca] = useState("");
   const [lista, setLista] = useState([]);
+  const [temMais, setTemMais] = useState(true);
+
+
+  const [loading, setLoading] = useState(false);
+  const [pagina, setPagina] = useState(0);
+  const [tamanho] = useState(5);
 
   const [formData, setFormData] = useState({
     titulo: "",
@@ -24,13 +30,18 @@ function ListaLivros({ atualizarLista }) {
     const timeout = setTimeout(() => {
       const carregarLivros = async () => {
         try {
+          setLoading(true);
+
           const dados = busca
-            ? await buscarLivros(busca)
-            : await listarLivros();
+            ? await buscarLivros(busca, pagina, tamanho)
+            : await listarLivros(pagina, tamanho);
 
           setLista(dados);
+          setTemMais(dados.length === tamanho);
         } catch (error) {
           console.error("Erro ao buscar livros:", error);
+        } finally {
+          setLoading(false);
         }
       };
 
@@ -38,7 +49,7 @@ function ListaLivros({ atualizarLista }) {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [busca]);
+  }, [busca, pagina]);
 
   // EDITAR
   const editarLivroHandler = (livro) => {
@@ -123,7 +134,10 @@ function ListaLivros({ atualizarLista }) {
         type="text"
         placeholder="Buscar por título..."
         value={busca}
-        onChange={(e) => setBusca(e.target.value)}
+        onChange={(e) => {
+          setBusca(e.target.value);
+          setPagina(0); // 🔥 ESSENCIAL
+        }}
         style={{
           padding: "10px",
           marginBottom: "20px",
@@ -160,6 +174,26 @@ function ListaLivros({ atualizarLista }) {
           </form>
         </div>
       )}
+
+      <div style={{ marginTop: "20px" }}>
+        <button
+          onClick={() => setPagina((prev) => prev - 1)}
+          disabled={pagina === 0}
+        >
+          ⬅️ Anterior
+        </button>
+
+        <span style={{ margin: "0 10px" }}>
+          Página {pagina + 1}
+        </span>
+
+        <button
+          onClick={() => setPagina((prev) => prev + 1)}
+          disabled={!temMais}
+        >
+          Próxima ➡️
+        </button>
+      </div>
     </div>
   );
 }
