@@ -1,7 +1,7 @@
 import { api } from "./api";
 
 // GET
-export const buscarLivros = async () => {
+export const listarLivros = async () => {
   const response = await api.get("/livros");
 
   console.log("DEBUG RESPONSE:", response.data);
@@ -25,3 +25,14 @@ export const editarLivro = async (id, livroAtualizado) => {
 export const deletarLivro = async (id) => {
   await api.delete(`/livros/${id}`);
 };
+
+
+// FUNÇÃO PARA BUSCAR LIVRO
+export const buscarLivros = async (titulo) => {
+  const response = await api.get("/livros", {
+    params: { titulo }
+  });
+
+  return response.data.data;
+};
+
