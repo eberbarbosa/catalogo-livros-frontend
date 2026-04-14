@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LivroCard from "./LivroCard";
-import { editarLivro, deletarLivro } from "@/services/livroService";
+import { editarLivro, deletarLivro, buscarLivros, listarLivros } from "@/services/livroService";
 import "./ListaLivros.css";
 import { toast } from "react-toastify";
 
-function ListaLivros({ livros, atualizarLista }) {
+function ListaLivros({ atualizarLista }) {
 
-  
+  // STATES
   const [livroSelecionado, setLivroSelecionado] = useState(null);
   const [busca, setBusca] = useState("");
+  const [lista, setLista] = useState([]);
 
   const [formData, setFormData] = useState({
     titulo: "",
@@ -17,6 +18,27 @@ function ListaLivros({ livros, atualizarLista }) {
     isbn: "",
     anoPublicacao: "",
   });
+
+  // 🔥 BUSCA COM DEBOUNCE (CORRETO)
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const carregarLivros = async () => {
+        try {
+          const dados = busca
+            ? await buscarLivros(busca)
+            : await listarLivros();
+
+          setLista(dados);
+        } catch (error) {
+          console.error("Erro ao buscar livros:", error);
+        }
+      };
+
+      carregarLivros();
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [busca]);
 
   // EDITAR
   const editarLivroHandler = (livro) => {
@@ -61,50 +83,57 @@ function ListaLivros({ livros, atualizarLista }) {
         anoPublicacao: "",
       });
 
-      atualizarLista(); // 🔥 correto agora
+      // 🔥 força recarregar lista após edição
+      const dados = busca
+        ? await buscarLivros(busca)
+        : await listarLivros();
+
+      setLista(dados);
 
     } catch (error) {
       console.error("Erro ao atualizar livro:", error);
-
       toast.error("Erro ao atualizar livro ❌");
     }
   };
 
-  // DELETE (usando service)
+  // DELETE
   const handleDelete = async (id) => {
     try {
       await deletarLivro(id);
       toast.success("Livro deletado com sucesso! 🗑");
-      atualizarLista();
+
+      // 🔥 recarrega lista após delete
+      const dados = busca
+        ? await buscarLivros(busca)
+        : await listarLivros();
+
+      setLista(dados);
+
     } catch (error) {
       console.error("Erro ao deletar:", error);
     }
   };
 
-  const livrosFiltrados = livros.filter((livro) =>
-    livro.titulo.toLowerCase().includes(busca.toLowerCase())
-  );
-
   return (
     <div className="lista-livros">
       <h2>Lista de Livros</h2>
 
-       {/* 🔍 CAMPO DE BUSCA */}
-    <input
-      type="text"
-      placeholder="Buscar por título..."
-      value={busca}
-      onChange={(e) => setBusca(e.target.value)}
-      style={{
-        padding: "10px",
-        marginBottom: "20px",
-        width: "100%",
-        maxWidth: "400px"
-      }}
-    />
-      
+      {/* 🔍 CAMPO DE BUSCA */}
+      <input
+        type="text"
+        placeholder="Buscar por título..."
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+        style={{
+          padding: "10px",
+          marginBottom: "20px",
+          width: "100%",
+          maxWidth: "400px"
+        }}
+      />
 
-      {livrosFiltrados.map((livro) => (
+      {/* LISTA */}
+      {lista.map((livro) => (
         <LivroCard
           key={livro.id}
           livro={livro}
@@ -113,7 +142,7 @@ function ListaLivros({ livros, atualizarLista }) {
         />
       ))}
 
-
+      {/* FORM DE EDIÇÃO */}
       {livroSelecionado && (
         <div className="form-edicao">
           <h3>Editando: {livroSelecionado.titulo}</h3>
@@ -123,7 +152,6 @@ function ListaLivros({ livros, atualizarLista }) {
             <input name="preco" type="number" value={formData.preco} onChange={handleChange} required />
             <input name="isbn" value={formData.isbn} onChange={handleChange} required />
             <input name="anoPublicacao" type="number" value={formData.anoPublicacao} onChange={handleChange} required />
-
 
             <button type="submit">Salvar</button>
             <button type="button" onClick={() => setLivroSelecionado(null)}>

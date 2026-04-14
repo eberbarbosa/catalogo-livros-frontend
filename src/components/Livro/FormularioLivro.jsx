@@ -16,68 +16,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
     const [loading, setLoading] = useState(false);
     const [erros, setErros] = useState({});
 
-
-    /*const handleSubmit = async (e) => {
-        console.log("CLICOU NO BOTÃO");
-        e.preventDefault();
-
-        
-
-
-        const novoLivro = {
-            titulo,
-            autor,
-            preco: preco ? parseFloat(preco) : null,
-            isbn,
-            anoPublicacao: anoPublicacao ? parseInt(anoPublicacao) : null,
-        };
-
-
-        const errosValidacao = validarLivro(novoLivro);
-
-        if (Object.keys(errosValidacao).length > 0) {
-            setErros(errosValidacao);
-
-            // MOSTRA TOAST AQUI
-            Object.values(errosValidacao).forEach((msg) => {
-                toastErro(msg);
-            });
-            return; // BLOQUEIA ENVIO
-        }
-
-        setErros({}); // limpa erros se estiver tudo certo
-
-        setLoading(true);
-        console.log("INICIO");
-
-
-         try {
-             await criarLivro(novoLivro);
- 
-             await new Promise(resolve => setTimeout(resolve, 2000));
- 
-             toastSucesso(mensagens.sucesso.criar);
- 
-             // limpa formulário
-             setTitulo("");
-             setAutor("");
-             setPreco("");
-             setIsbn("");
-             setAnoPublicacao("");
- 
-             // avisa o componente pai para atualizar lista
-             if (onLivroCriado) {
-                 onLivroCriado();
-             }
- 
-         } catch (error) {
-             console.error("Erro ao criar livro", error);
-             toastErro(tratarErro(error));
-         }
-         finally {
-             setLoading(false); // 👈 ESSENCIAL
-         }
-     }; */
+  
 
     const handleSubmit = async (e) => {
         e.preventDefault();
