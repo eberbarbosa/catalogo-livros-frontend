@@ -1,10 +1,10 @@
 import { api } from "./api";
 
 // GET
-export const listarLivros = async () => {
-  const response = await api.get("/livros");
-
-  console.log("DEBUG RESPONSE:", response.data);
+export const listarLivros = async (page = 0, size = 5) => {
+  const response = await api.get("/livros", {
+    params: { page, size }
+  });
 
   return response.data.data;
 };
@@ -28,9 +28,9 @@ export const deletarLivro = async (id) => {
 
 
 // FUNÇÃO PARA BUSCAR LIVRO
-export const buscarLivros = async (titulo) => {
+export const buscarLivros = async (titulo, page = 0, size = 5) => {
   const response = await api.get("/livros", {
-    params: { titulo }
+    params: { titulo, page, size }
   });
 
   return response.data.data;
