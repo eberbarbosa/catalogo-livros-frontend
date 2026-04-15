@@ -11,22 +11,17 @@ import { useLoading } from "@/context/LoadingContext";
 
 function App() {
   const { setLoading } = useLoading();
-  const [livros, setLivros] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
- //   setupInterceptors(setLoading); 
+    //   setupInterceptors(setLoading); 
   }, []);
 
-  const carregarLivros = async () => {
-    const data = await buscarLivros();
-    console.log("ATUALIZANDO LISTA:", data);
-    setLivros([...data]);
+  const recarregarLista = () => {
+    setRefresh((prev) => !prev);
   };
 
 
-  useEffect(() => {
-    carregarLivros();
-  }, []);
 
   return (
     <>
@@ -39,14 +34,12 @@ function App() {
 
 
           {/* 👇 FORMULÁRIO */}
-          <FormularioLivro onLivroCriado={carregarLivros}
-          />
+          <FormularioLivro onLivroCriado={recarregarLista} />
+
 
           {/* 👇 LISTA */}
-          <ListaLivros
-            livros={livros}
-            atualizarLista={carregarLivros}
-          />
+          <ListaLivros atualizarLista={refresh} />
+
 
           <ToastContainer
             position="top-right"

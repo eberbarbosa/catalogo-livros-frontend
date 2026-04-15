@@ -1,5 +1,18 @@
 import { api } from "./api";
 
+const handleRequest = async (request) => {
+  try {
+    const response = await request;
+
+    // 🔥 trata diferentes formatos de resposta
+    return response.data?.data ?? response.data;
+
+  } catch (error) {
+    console.error("Erro na API:", error);
+    throw error;
+  }
+};
+
 // GET
 export const listarLivros = async (page = 0, size = 5) => {
   const response = await api.get("/livros", {
