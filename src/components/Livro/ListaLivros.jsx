@@ -4,7 +4,7 @@ import { editarLivro, deletarLivro, buscarLivros, listarLivros } from "@/service
 import "./ListaLivros.css";
 import { toast } from "react-toastify";
 
-function ListaLivros({ atualizarLista }) {
+function ListaLivros({ refresh }) {
 
   // STATES
   const [livroSelecionado, setLivroSelecionado] = useState(null);
@@ -24,6 +24,7 @@ function ListaLivros({ atualizarLista }) {
     isbn: "",
     anoPublicacao: "",
   });
+
 
   // 🔥 BUSCA COM DEBOUNCE (CORRETO)
   useEffect(() => {
@@ -49,7 +50,7 @@ function ListaLivros({ atualizarLista }) {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [busca, pagina]);
+  }, [busca, pagina, refresh]);
 
   // EDITAR
   const editarLivroHandler = (livro) => {
@@ -99,7 +100,7 @@ function ListaLivros({ atualizarLista }) {
         ? await buscarLivros(busca)
         : await listarLivros();
 
-      setLista(dados);
+  
 
     } catch (error) {
       console.error("Erro ao atualizar livro:", error);
@@ -118,12 +119,14 @@ function ListaLivros({ atualizarLista }) {
         ? await buscarLivros(busca)
         : await listarLivros();
 
-      setLista(dados);
+      
 
     } catch (error) {
       console.error("Erro ao deletar:", error);
     }
   };
+
+
 
   return (
     <div className="lista-livros">
