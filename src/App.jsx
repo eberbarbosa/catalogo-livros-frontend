@@ -39,7 +39,7 @@ function App() {
 
 
           {/* 👇 LISTA */}
-          <ListaLivros refresh={refresh} />
+          <ListaLivros atualizarLista={recarregarLista} refresh={refresh} />
 
 
           <ToastContainer

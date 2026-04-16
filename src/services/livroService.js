@@ -47,7 +47,7 @@ export const deletarLivro = async (id) => {
 
 // FUNÇÃO PARA BUSCAR LIVRO
 export const buscarLivros = async (titulo, page = 0, size = 5) => {
-  console.log("[SERVICE] GET /livros", { titulo, pagina, tamanho });
+  console.log("[SERVICE] GET /livros", { titulo, page, size });
   const response = await api.get("/livros", {
     params: { titulo, page, size }
   });
