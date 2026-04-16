@@ -4,7 +4,7 @@ import { editarLivro, deletarLivro, buscarLivros, listarLivros } from "@/service
 import "./ListaLivros.css";
 import { toast } from "react-toastify";
 
-function ListaLivros({ refresh }) {
+function ListaLivros({ refresh, atualizarLista }) {
 
   // STATES
   const [livroSelecionado, setLivroSelecionado] = useState(null);
@@ -127,11 +127,7 @@ function ListaLivros({ refresh }) {
       await deletarLivro(id);
       toast.success("Livro deletado com sucesso! 🗑");
 
-      // 🔥 recarrega lista após delete
-      const dados = busca
-        ? await buscarLivros(busca)
-        : await listarLivros();
-
+      atualizarLista();
 
 
     } catch (error) {
