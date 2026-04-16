@@ -25,22 +25,35 @@ function ListaLivros({ refresh }) {
     anoPublicacao: "",
   });
 
+  // 🔥 RESETA PARA PÁGINA 0 QUANDO CRIA/ATUALIZA
+  useEffect(() => {
+    setPagina(0);
+  }, [refresh]);
+
 
   // 🔥 BUSCA COM DEBOUNCE (CORRETO)
   useEffect(() => {
+    console.log("[LISTA] useEffect disparou", { busca, pagina, refresh });
     const timeout = setTimeout(() => {
       const carregarLivros = async () => {
         try {
           setLoading(true);
+
+          console.log("[LISTA] Buscando livros...", {
+            busca,
+            pagina,
+            tamanho
+          });
 
           const dados = busca
             ? await buscarLivros(busca, pagina, tamanho)
             : await listarLivros(pagina, tamanho);
 
           setLista(dados);
+          console.log("[LISTA] Livros recebidos:", dados);
           setTemMais(dados.length === tamanho);
         } catch (error) {
-          console.error("Erro ao buscar livros:", error);
+          console.error("[LISTA] Erro ao buscar livros:", error);
         } finally {
           setLoading(false);
         }
@@ -100,7 +113,7 @@ function ListaLivros({ refresh }) {
         ? await buscarLivros(busca)
         : await listarLivros();
 
-  
+
 
     } catch (error) {
       console.error("Erro ao atualizar livro:", error);
@@ -119,7 +132,7 @@ function ListaLivros({ refresh }) {
         ? await buscarLivros(busca)
         : await listarLivros();
 
-      
+
 
     } catch (error) {
       console.error("Erro ao deletar:", error);

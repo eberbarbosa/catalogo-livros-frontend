@@ -18,6 +18,7 @@ function App() {
   }, []);
 
   const recarregarLista = () => {
+    console.log("[APP] Trigger refresh lista");
     setRefresh((prev) => !prev);
   };
 
@@ -38,7 +39,7 @@ function App() {
 
 
           {/* 👇 LISTA */}
-          <ListaLivros atualizarLista={refresh} />
+          <ListaLivros refresh={refresh} />
 
 
           <ToastContainer

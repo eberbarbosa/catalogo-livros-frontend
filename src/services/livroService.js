@@ -24,7 +24,12 @@ export const listarLivros = async (page = 0, size = 5) => {
 
 // POST
 export const criarLivro = async (livro) => {
+  console.log("[SERVICE] POST /livros", livro);
+
   const response = await api.post("/livros", livro);
+
+  console.log("[SERVICE] Response:", response.data);
+
   return response.data;
 };
 
@@ -42,6 +47,7 @@ export const deletarLivro = async (id) => {
 
 // FUNÇÃO PARA BUSCAR LIVRO
 export const buscarLivros = async (titulo, page = 0, size = 5) => {
+  console.log("[SERVICE] GET /livros", { titulo, pagina, tamanho });
   const response = await api.get("/livros", {
     params: { titulo, page, size }
   });

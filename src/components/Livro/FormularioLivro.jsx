@@ -5,6 +5,7 @@ import { mensagens } from "@/utils/toastMessages";
 import { toastSucesso } from "@/utils/toast";
 import { tratarErro } from "@/utils/errorHandler";
 import { toastErro } from "@/utils/toast";
+import { log } from "@/utils/logger";
 
 
 const FormularioLivro = ({ onLivroCriado }) => {
@@ -16,22 +17,21 @@ const FormularioLivro = ({ onLivroCriado }) => {
     const [loading, setLoading] = useState(false);
     const [erros, setErros] = useState({});
 
-  
+
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        console.log("🔥 SUBMIT DISPARADO");
+        e.preventDefault();        
 
         const novoLivro = {
             titulo,
             autor,
-            preco: preco ? parseFloat(preco) : null,
+            preco: preco !== "" ? Number(preco) : null,
+           // preco: preco ? parseFloat(preco) : null,
             isbn,
             anoPublicacao: anoPublicacao ? parseInt(anoPublicacao) : null,
         };
 
-        console.log("📦 OBJETO:", novoLivro);
+        console.log("[FORM] Payload:", novoLivro);
 
         const errosValidacao = validarLivro(novoLivro);
 
@@ -51,13 +51,13 @@ const FormularioLivro = ({ onLivroCriado }) => {
         setLoading(true);
 
         try {
-            console.log("🚀 CHAMANDO API");
+            console.log("[FORM] Chamando API POST /livros");
 
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             await criarLivro(novoLivro);
 
-            console.log("✅ SUCESSO");
+            console.log("[FORM] Livro criado com sucesso");
 
             toastSucesso(mensagens.sucesso.criar);
 
@@ -73,7 +73,7 @@ const FormularioLivro = ({ onLivroCriado }) => {
             }
 
         } catch (error) {
-            console.error("💥 ERRO:", error);
+            console.error("[FORM] Erro ao criar livro:", error);
             toastErro(tratarErro(error));
         } finally {
             setLoading(false);
