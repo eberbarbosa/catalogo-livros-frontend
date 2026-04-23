@@ -1,91 +1,68 @@
-![header](https://img.shields.io/badge/React%20%2B%20Vite%20%E2%80%94%20Frontend%20Moderno-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+# 📚 Catálogo de Livros
 
-![React](https://img.shields.io/badge/React_18+-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite_5.x-1a1a2e?style=for-the-badge&logo=vite&logoColor=646CFF)
-![JavaScript](https://img.shields.io/badge/JavaScript_ES6+-1a1a2e?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
-![CSS3](https://img.shields.io/badge/CSS3-1a1a2e?style=for-the-badge&logo=css3&logoColor=1572B6)
-![HTML5](https://img.shields.io/badge/HTML5-1a1a2e?style=for-the-badge&logo=html5&logoColor=E34F26)
-![ESLint](https://img.shields.io/badge/ESLint-1a1a2e?style=for-the-badge&logo=eslint&logoColor=4B32C3)
+![header](https://img.shields.io/badge/React%20%2B%20Vite-Frontend%20Moderno-20232A?style=for-the-badge&logo=react)
 
-[![Last Commit](https://img.shields.io/github/last-commit/eberbarbosa/catalogo-livros-frontend/develop?style=flat-square&logo=github&label=último%20commit&color=58A6FF&labelColor=0d1117)](https://github.com/eberbarbosa/catalogo-livros-frontend/commits/develop)
-[![Commits](https://img.shields.io/github/commit-activity/t/eberbarbosa/catalogo-livros-frontend?style=flat-square&logo=github&label=commits&color=238636&labelColor=0d1117)](https://github.com/eberbarbosa/catalogo-livros-frontend/commits/develop)
-[![Issues](https://img.shields.io/github/issues/eberbarbosa/catalogo-livros-frontend?style=flat-square&logo=github&label=issues&color=DA3633&labelColor=0d1117)](https://github.com/eberbarbosa/catalogo-livros-frontend/issues)
-[![Stars](https://img.shields.io/github/stars/eberbarbosa/catalogo-livros-frontend?style=flat-square&logo=github&label=stars&color=E3B341&labelColor=0d1117)](https://github.com/eberbarbosa/catalogo-livros-frontend/stargazers)
-[![Forks](https://img.shields.io/github/forks/eberbarbosa/catalogo-livros-frontend?style=flat-square&logo=github&label=forks&color=8B949E&labelColor=0d1117)](https://github.com/eberbarbosa/catalogo-livros-frontend/network)
-![Status](https://img.shields.io/badge/status-em%20desenvolvimento-F0883E?style=flat-square&labelColor=0d1117)
-![License](https://img.shields.io/badge/license-MIT-8957E5?style=flat-square&labelColor=0d1117)
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-F0883E)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Last Commit](https://img.shields.io/github/last-commit/eberbarbosa/catalogo-livros-frontend)
+![Repo Size](https://img.shields.io/github/repo-size/eberbarbosa/catalogo-livros-frontend)
 
 ---
 
-Plataforma moderna para gerenciar, buscar e explorar acervos literários.
-Construída com React + Vite, focada em performance e experiência do usuário.
+## 🎬 Preview da Aplicação
+
+![Demo](./public/demo.gif)
+
+> Interface rápida, moderna e responsiva para explorar livros.
 
 ---
 
-[![Demo](https://img.shields.io/badge/🚀%20Ver%20Demo-238636?style=for-the-badge)](https://github.com/eberbarbosa/catalogo-livros-frontend)
-[![Bug](https://img.shields.io/badge/🐛%20Reportar%20Bug-DA3633?style=for-the-badge)](https://github.com/eberbarbosa/catalogo-livros-frontend/issues/new)
-[![Feature](https://img.shields.io/badge/✨%20Sugerir%20Feature-8957E5?style=for-the-badge)](https://github.com/eberbarbosa/catalogo-livros-frontend/issues/new)
+## 🖼️ Preview da UI
 
----
-
-## 📋 Índice
-
-- 🎯 Sobre o Projeto
-- ✨ Funcionalidades
-- 🛠️ Tecnologias
-- 🚀 Como Executar
-- 📁 Estrutura do Projeto
-- 🗺️ Roadmap
-- 🤝 Contribuição
-- 📄 Licença
-- 📞 Contato
+![Preview](./public/preview.png)
 
 ---
 
 ## 🎯 Sobre o Projeto
 
-O Catálogo de Livros é o frontend de um sistema completo para gestão e descoberta de livros.
+O **Catálogo de Livros** é um frontend moderno para consumo de APIs de livros.
 
-🧠 Arquitetura modular e escalável
-⚡ Build ultrarrápido com Vite
-🎨 UI consistente e reutilizável
-🔌 Pronto para integrar com qualquer API REST
+Construído com foco em:
 
-💡 Projeto em desenvolvimento ativo com mais de 71 commits.
+- ⚡ Performance (Vite)
+- 🧠 Escalabilidade
+- 🎨 UX limpa e intuitiva
+- 🔌 Integração com APIs REST
 
 ---
 
 ## ✨ Funcionalidades
 
-- 🔍 Busca avançada (título, autor, ISBN) — ✅
-- 📖 Detalhes do livro — ✅
-- 📱 Design responsivo — ✅
-- ⚡ Alta performance — ✅
-- 🔗 Integração com API — 🔄
-- 🔐 Autenticação — 🔜
-- 🧪 Testes — 🔜
-- 🌙 Dark / Light Mode — 🔜
+- 🔍 Busca por título, autor e ISBN
+- 📖 Visualização detalhada
+- 📱 Responsivo
+- ⚡ Carregamento instantâneo
+- 🔗 Integração com backend
 
 ---
 
-## 🛠️ Tecnologias
+## 🛠️ Stack
 
 - ⚛️ React 18+
-- ⚡ Vite 5.x
+- ⚡ Vite
 - 🟨 JavaScript ES6+
 - 🎨 CSS Modules
 - 🔍 ESLint
 
 ---
 
+## 🏗️ Arquitetura
+
+![Arquitetura](./public/arquitetura.png)
+
+---
+
 ## 🚀 Como Executar
-
-### Pré-requisitos
-- Node.js 18+
-- npm
-- Git
-
-### Passos
 
 ```bash
 git clone https://github.com/eberbarbosa/catalogo-livros-frontend.git
