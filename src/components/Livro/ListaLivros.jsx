@@ -1,22 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import LivroCard from "./LivroCard";
-import { editarLivro, deletarLivro, buscarLivros, listarLivros } from "@/services/livroService";
+import { editarLivro, deletarLivro } from "@/services/livroService";
 import "./ListaLivros.css";
 import { toast } from "react-toastify";
+import { useLivros } from "@/hooks/useLivros";
 
 
 function ListaLivros({ refresh, atualizarLista }) {
 
   // STATES
+  const {
+    busca,
+    setBusca,
+    lista,
+    pagina,
+    setPagina,
+    loading,
+    temMais,
+  } = useLivros(refresh);
+
   const [livroSelecionado, setLivroSelecionado] = useState(null);
-  const [busca, setBusca] = useState("");
-  const [lista, setLista] = useState([]);
-  const [temMais, setTemMais] = useState(true);
-
-
-  const [loading, setLoading] = useState(false);
-  const [pagina, setPagina] = useState(0);
-  const [tamanho] = useState(5);
 
   const [formData, setFormData] = useState({
     titulo: "",
@@ -26,47 +29,6 @@ function ListaLivros({ refresh, atualizarLista }) {
     anoPublicacao: "",
   });
 
-  // 🔥 RESETA PARA PÁGINA 0 QUANDO CRIA/ATUALIZA
-  useEffect(() => {
-    setPagina(0);
-  }, [refresh]);
-
-
-  // 🔥 BUSCA COM DEBOUNCE (CORRETO)
-  useEffect(() => {
-    console.log("[LISTA] useEffect disparou", { busca, pagina, refresh });
-    const timeout = setTimeout(() => {
-      const carregarLivros = async () => {
-        try {
-          setLoading(true);
-
-          console.log("[LISTA] Buscando livros...", {
-            busca,
-            pagina,
-            tamanho
-          });
-
-          const dados = busca
-            ? await buscarLivros(busca, pagina, tamanho)
-            : await listarLivros(pagina, tamanho);
-
-
-          setLista(dados);
-          console.log("[LISTA] Livros recebidos:", dados);
-          setTemMais(dados.length === tamanho && dados.length > 0);
-        } catch (error) {
-          console.error("[LISTA] Erro ao buscar livros:", error);
-
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      carregarLivros();
-    }, 500);
-
-    return () => clearTimeout(timeout);
-  }, [busca, pagina, refresh]);
 
   // EDITAR
   const editarLivroHandler = (livro) => {
@@ -111,11 +73,7 @@ function ListaLivros({ refresh, atualizarLista }) {
         anoPublicacao: "",
       });
 
-      // 🔥 força recarregar lista após edição
-      const dados = busca
-        ? await buscarLivros(busca)
-        : await listarLivros();
-
+      atualizarLista();
 
 
     } catch (error) {
