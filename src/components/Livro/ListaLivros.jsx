@@ -4,6 +4,7 @@ import { editarLivro, deletarLivro } from "@/services/livroService";
 import "./ListaLivros.css";
 import { toast } from "react-toastify";
 import { useLivros } from "@/hooks/useLivros";
+import { logger } from "@/utils/logger";
 
 
 function ListaLivros({ refresh, atualizarLista }) {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { buscarLivros, listarLivros } from "@/services/livroService";
+import { logger } from "@/utils/logger";
 
 export function useLivros(refresh) {
 
