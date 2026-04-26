@@ -4,6 +4,7 @@ import { editarLivro, deletarLivro, buscarLivros, listarLivros } from "@/service
 import "./ListaLivros.css";
 import { toast } from "react-toastify";
 
+
 function ListaLivros({ refresh, atualizarLista }) {
 
   // STATES
@@ -49,11 +50,13 @@ function ListaLivros({ refresh, atualizarLista }) {
             ? await buscarLivros(busca, pagina, tamanho)
             : await listarLivros(pagina, tamanho);
 
+
           setLista(dados);
           console.log("[LISTA] Livros recebidos:", dados);
-          setTemMais(dados.length === tamanho);
+          setTemMais(dados.length === tamanho && dados.length > 0);
         } catch (error) {
           console.error("[LISTA] Erro ao buscar livros:", error);
+
         } finally {
           setLoading(false);
         }
@@ -142,7 +145,7 @@ function ListaLivros({ refresh, atualizarLista }) {
       <h2>Lista de Livros</h2>
 
       {/* 🔍 CAMPO DE BUSCA */}
-      <input
+      <input       
         type="text"
         placeholder="Buscar por título..."
         value={busca}
@@ -157,6 +160,14 @@ function ListaLivros({ refresh, atualizarLista }) {
           maxWidth: "400px"
         }}
       />
+
+      {/* 🔄 LOADING */}
+      {loading && <p>🔄 Carregando livros...</p>}
+
+      {/* 📭 LISTA VAZIA */}
+      {!loading && lista.length === 0 && (
+        <p>📚 Nenhum livro encontrado.</p>
+      )}
 
       {/* LISTA */}
       {lista.map((livro) => (
@@ -190,18 +201,18 @@ function ListaLivros({ refresh, atualizarLista }) {
       <div style={{ marginTop: "20px" }}>
         <button
           onClick={() => setPagina((prev) => prev - 1)}
-          disabled={pagina === 0}
+          disabled={pagina === 0 || loading}
         >
           ⬅️ Anterior
         </button>
 
         <span style={{ margin: "0 10px" }}>
-          Página {pagina + 1}
+          Página {pagina + 1} {loading && "⏳"}
         </span>
 
         <button
           onClick={() => setPagina((prev) => prev + 1)}
-          disabled={!temMais}
+          disabled={!temMais || loading}
         >
           Próxima ➡️
         </button>
