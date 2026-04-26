@@ -125,17 +125,45 @@ function ListaLivros({ refresh, atualizarLista }) {
   };
 
   // DELETE
-  const handleDelete = async (id) => {
-    try {
-      await deletarLivro(id);
-      toast.success("Livro deletado com sucesso! 🗑");
+  const handleDelete = (id) => {
 
-      atualizarLista();
+    toast(
+      ({ closeToast }) => (
+        <div>
+          <p>🗑 Tem certeza que deseja deletar este livro?</p>
 
+          <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+            <button
+              onClick={async () => {
+                try {
+                  await deletarLivro(id);
+                  toast.success("Livro deletado com sucesso! 🗑");
+                  atualizarLista();
+                } catch (error) {
+                  console.error("Erro ao deletar:", error);
+                  toast.error("Erro ao deletar livro ❌");
+                }
+                closeToast();
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              Confirmar
+            </button>
 
-    } catch (error) {
-      console.error("Erro ao deletar:", error);
-    }
+            <button
+              onClick={closeToast}
+              style={{ cursor: "pointer" }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        autoClose: false,
+        closeOnClick: false,
+      }
+    );
   };
 
 
@@ -145,7 +173,7 @@ function ListaLivros({ refresh, atualizarLista }) {
       <h2>Lista de Livros</h2>
 
       {/* 🔍 CAMPO DE BUSCA */}
-      <input       
+      <input
         type="text"
         placeholder="Buscar por título..."
         value={busca}
