@@ -5,7 +5,7 @@ import { mensagens } from "@/utils/toastMessages";
 import { toastSucesso } from "@/utils/toast";
 import { tratarErro } from "@/utils/errorHandler";
 import { toastErro } from "@/utils/toast";
-import { log } from "@/utils/logger";
+import { logger } from "@/utils/logger";
 
 
 const FormularioLivro = ({ onLivroCriado }) => {
@@ -31,12 +31,12 @@ const FormularioLivro = ({ onLivroCriado }) => {
             anoPublicacao: anoPublicacao ? parseInt(anoPublicacao) : null,
         };
 
-        console.log("[FORM] Payload:", novoLivro);
+        logger.info("FORM", "Payload", novoLivro);
 
         const errosValidacao = validarLivro(novoLivro);
 
         if (Object.keys(errosValidacao).length > 0) {
-            console.log("❌ ERROS:", errosValidacao);
+            logger.error("FORM", "Erros de validação", errosValidacao);
 
             setErros(errosValidacao);
 
@@ -51,13 +51,13 @@ const FormularioLivro = ({ onLivroCriado }) => {
         setLoading(true);
 
         try {
-            console.log("[FORM] Chamando API POST /livros");
+            logger.info("FORM", "Chamando API POST /livros");
 
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             await criarLivro(novoLivro);
 
-            console.log("[FORM] Livro criado com sucesso");
+            logger.info("[FORM] Livro criado com sucesso");
 
             toastSucesso(mensagens.sucesso.criar);
 
